@@ -28,10 +28,14 @@ case $lang in
 esac
 # create basic files
 if [[ $type_project == 'bash' ]]; then
-	echo '#!/usr/bin/bash' >> $NEW_FOLDER/main.bash
-	chmod +x $NEW_FOLDER/main.bash
+	echo '#!/usr/bin/bash' >> $NEW_FOLDER/main.sh
+	chmod +x $NEW_FOLDER/main.sh
+	# Open in default editor
+	$EDITOR $NEW_FOLDER/main.sh
 elif [[ $type_project == 'javascript' ]]; then
 	> $NEW_FOLDER/main.js
 	> $NEW_FOLDER/index.html
+	# Open in default editor
+	$EDITOR $NEW_FOLDER/main.js
 fi
 
