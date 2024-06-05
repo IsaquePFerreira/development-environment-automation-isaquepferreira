@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
 
 # Projects folder
-DEFAULT_PROJECT_FOLDER="$HOME/Projects"
+DEFAULT_PROJECTS_FOLDER="$HOME/Projects"
+
+# Template folder
+TEMPLATE_FOLDER=$HOME/.dea/templates
 
 # languages list
 languages='1 - Bash
 2 - JavaScript'
 
-# DEFAULT_PROJECT_FOLDER exists?
-[[ ! -d $DEFAULT_PROJECT_FOLDER ]] && echo 'Default directory not found!' && exit 1
+# DEFAULT_PROJECTS_FOLDER exists?
+[[ ! -d $DEFAULT_PROJECTS_FOLDER ]] && echo 'Default directory not found!' && exit 1
 
 # Create new project
 # project name
 read -p 'Project name: ' project_name
 [[ -z $project_name ]] &&  echo 'Empty project name!' && exit 1
-NEW_FOLDER=$DEFAULT_PROJECT_FOLDER/$project_name
+PROJECT_FOLDER=$DEFAULT_PROJECTS_FOLDER/$project_name
 # create project folder
-mkdir -p $NEW_FOLDER
+mkdir -p $PROJECT_FOLDER
 # select a language
 echo 'Project language:'
 echo "$languages"
@@ -28,14 +31,14 @@ case $lang in
 esac
 # create basic files
 if [[ $type_project == 'bash' ]]; then
-	echo '#!/usr/bin/bash' >> $NEW_FOLDER/main.sh
-	chmod +x $NEW_FOLDER/main.sh
+	cp -r $TEMPLATE_FOLDER/$type_project/* $PROJECT_FOLDER/
+	cp $TEMPLATE_FOLDER/README.md $PROJECT_FOLDER/
 	# Open in default editor
-	$EDITOR $NEW_FOLDER/main.sh
+	$EDITOR $PROJECT_FOLDER/main.sh
 elif [[ $type_project == 'javascript' ]]; then
-	> $NEW_FOLDER/main.js
-	> $NEW_FOLDER/index.html
+	cp -r $TEMPLATE_FOLDER/$type_project/* $PROJECT_FOLDER/
+	cp $TEMPLATE_FOLDER/README.md $PROJECT_FOLDER/
 	# Open in default editor
-	$EDITOR $NEW_FOLDER/main.js
+	$EDITOR $PROJECT_FOLDER/main.js
 fi
 
