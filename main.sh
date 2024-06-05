@@ -8,9 +8,7 @@ languages='1 - Bash
 2 - JavaScript'
 
 # DEFAULT_PROJECT_FOLDER exists?
-if [[ ! -d $DEFAULT_PROJECT_FOLDER ]]; then
-	mkdir $DEFAULT_PROJECT_FOLDER
-fi
+[[ ! -d $DEFAULT_PROJECT_FOLDER ]] && echo 'Default directory not found!' && exit 1
 
 # Create new project
 # project name
