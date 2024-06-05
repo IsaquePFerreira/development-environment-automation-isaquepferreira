@@ -14,6 +14,9 @@ languages='1 - Bash
 # project name
 read -p 'Project name: ' project_name
 [[ -z $project_name ]] &&  echo 'Empty project name!' && exit 1
+NEW_FOLDER=$DEFAULT_PROJECT_FOLDER/$project_name
+# create project folder
+mkdir -p $NEW_FOLDER
 # select a language
 echo 'Project language:'
 echo "$languages"
@@ -23,4 +26,12 @@ case $lang in
 	2) type_project='javascript';;
 	*) echo 'Invalid or empty value' && exit 1;
 esac
+# create basic files
+if [[ $type_project == 'bash' ]]; then
+	echo '#!/usr/bin/bash' >> $NEW_FOLDER/main.bash
+	chmod +x $NEW_FOLDER/main.bash
+elif [[ $type_project == 'javascript' ]]; then
+	> $NEW_FOLDER/main.js
+	> $NEW_FOLDER/index.html
+fi
 
